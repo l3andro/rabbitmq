@@ -50,6 +50,8 @@ RUN set -xe && \
     rm -rf /var/lib/rabbitmq/.erlang.cookie && \
     ln -sf "$RABBITMQ_HOME/plugins" /plugins
 
+ADD ca.crt /etc/pki/ca-trust/source/anchors/
+RUN update-ca-trust extract
 COPY docker-entrypoint.sh /usr/local/bin/
 USER 1001
 ENV PATH=$RABBITMQ_HOME/sbin:$PATH
